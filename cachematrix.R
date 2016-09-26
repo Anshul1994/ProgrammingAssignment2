@@ -5,12 +5,14 @@
 ## a list containing functions to get the value of the input matrix, set and
 ## cache the value of inverse matrix and get the value of inverse matrix
 
-makeCacheMatrix <- function(x = matrix()) {
-        i <- NULL
-        get <- function() x
-        setinverse <- function(inverse) i <<- inverse
-        getinverse <- function() i
-        list(get=get,setinverse=setinverse,getinverse=getinverse)
+makeCacheMatrix <- function(x = matrix()) { ##function definition
+        i <- NULL ## object to store inverse of the given matrix x
+        get <- function() x ##function to return the value of x
+        setinverse <- function(inverse) i <<- inverse ##function to cache the value
+        ##of inverse matrix to i
+        getinverse <- function() i ##function to return to the value of i 
+        list(get=get,setinverse=setinverse,getinverse=getinverse) ##returning 
+        ##the special matrix which is actually a list
 
 }
 
@@ -22,14 +24,17 @@ makeCacheMatrix <- function(x = matrix()) {
 ##Note : Argument of cacheSolve() must be an object created by makeCacheMatrix()
 
 cacheSolve <- function(x, ...) {
-        i <- x$getinverse()
-        if(!is.null(i)) {
+        i <- x$getinverse() ##to get the value of inverse of the matrix x if 
+        ##already exists.
+        if(!is.null(i)) { ##to check if inverse already exists and return if yes
+                ##with a message "getting cached data"
                 message("getting cached data")
                 return(i)
         }
-        mat <- x$get()
-        i <- solve(mat)
-        x$setinverse(i)
-        i
+        mat <- x$get() ##if inverse doesn't exists, this will get the value of 
+        ##matrix x and store it to object mat
+        i <- solve(mat)  ## to calculate the inverse of mat and assign it to i
+        x$setinverse(i) ## to cache the value of inverse 
+        i ##return the value of inverse
 }
                 
